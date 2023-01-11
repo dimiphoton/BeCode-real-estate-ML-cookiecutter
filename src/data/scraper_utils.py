@@ -12,6 +12,8 @@ from threading import RLock
 from threading import Thread
 from time import perf_counter
 import xmltodict
+from urllib3.util.retry import Retry
+
 
 def get_xml(i):
     """get xml file given a number between 0 and 29
@@ -69,6 +71,7 @@ def collect_infos(url,df):
 
         # Getting all the property specific page content as a workable json format (with help from Beautifulsoup)
         page = requests.get(url)
+        retry = Retry(connect=3, backoff_factor=0.5)
         soup = BeautifulSoup(page.content, "lxml")               # "lxml" fast than "html.parser" - pip install lxml
         content = soup.find('div', class_="container-main-content")
         try:
@@ -78,37 +81,42 @@ def collect_infos(url,df):
             info = json.loads(content_sliced)
 
             # Collecting the different informations on the property
-            immoweb_code = info["id"]
-            locality = info["property"]["location"]["locality"]
-            type = info["property"]["type"]
-            subtype = info["property"]["subtype"]
-            price = info["transaction"]["sale"]["price"]
-            sale_type = info["transaction"]["subtype"]
-            bedrooms = info["property"]["bedroomCount"]
-            living_area = info["property"]["netHabitableSurface"]
-            if info["property"]["kitchen"] is None:
-                kitchen = "None"
-            else:
-                kitchen = "1" if info["property"]["kitchen"]["type"] == "HYPER_EQUIPPED" else "0"
-            if info["transaction"]["sale"] is not None and info["transaction"]["sale"]["isFurnished"] == "true":
-                furnished = "1"
-            else:
-                furnished = "None"
-            open_fire = "None" if info["property"]["fireplaceExists"] is None else int(info["property"]["fireplaceExists"])
-            terrace = "None" if info["property"]["hasTerrace"] is None else int(info["property"]["hasTerrace"])
-            area_terrace = "None" if info["property"]["terraceSurface"] is None else info["property"]["terraceSurface"]
-            garden = "None" if info["property"]["hasGarden"] is None else int(info["property"]["hasGarden"])
-            area_garden = "None" if info["property"]["gardenSurface"] is None else info["property"]["gardenSurface"]
-            land_surface = "None" if info["property"]["land"] is None else info["property"]["land"]["surface"]
-            facades = "None" if info["property"]["building"] is None else info["property"]["building"]["facadeCount"]
-            swimming_pool = "None" if info["property"]["hasSwimmingPool"] is None else int(info["property"]["hasSwimmingPool"])
-            building_state = "None" if info["property"]["building"] is None else info["property"]["building"]["condition"] 
+            if info["transaction"]["sale"]["price"] is not None:
+                immoweb_code = info["id"]
+                region= info["property"]["location"]["region"]
+                province=info["property"]["location"]["province"]
+                district=info["property"]["location"]["district"]
+                postcode = info["property"]["location"]["locality"]
+                property_type = info["property"]["type"]
+                subtype = info["property"]["subtype"]
+                price = info["transaction"]["sale"]["price"]
+                sale_type = info["transaction"]["subtype"]
+                bedrooms = info["property"]["bedroomCount"]
+                living_area = info["property"]["netHabitableSurface"]
+                if info["property"]["kitchen"] is None:
+                    kitchen = "None"
+                else:
+                    kitchen = "1" if info["property"]["kitchen"]["type"] == "HYPER_EQUIPPED" else "0"
+                if info["transaction"]["sale"] is not None and info["transaction"]["sale"]["isFurnished"] == "true":
+                    furnished = "1"
+                else:
+                    furnished = "None"
+                open_fire = "None" if info["property"]["fireplaceExists"] is None else int(info["property"]["fireplaceExists"])
+                terrace = "None" if info["property"]["hasTerrace"] is None else int(info["property"]["hasTerrace"])
+                area_terrace = "None" if info["property"]["terraceSurface"] is None else info["property"]["terraceSurface"]
+                garden = "None" if info["property"]["hasGarden"] is None else int(info["property"]["hasGarden"])
+                area_garden = "None" if info["property"]["gardenSurface"] is None else info["property"]["gardenSurface"]
+                land_surface = "None" if info["property"]["land"] is None else info["property"]["land"]["surface"]
+                facades = "None" if info["property"]["building"] is None else info["property"]["building"]["facadeCount"]
+                swimming_pool = "None" if info["property"]["hasSwimmingPool"] is None else int(info["property"]["hasSwimmingPool"])
+                building_state = "None" if info["property"]["building"] is None else info["property"]["building"]["condition"]
+                epc_score=info['transaction']['certificates']
 
 
 
-            df.loc[immoweb_code]=[locality, type, subtype, price , sale_type, bedrooms,living_area,
-            kitchen ,furnished , open_fire,terrace,area_terrace,garden,area_garden ,land_surface,
-            facades ,swimming_pool,building_state]
+                df.loc[immoweb_code]=[region,province,district,postcode, property_type, subtype, price , sale_type, bedrooms,living_area,
+                kitchen ,furnished , open_fire,terrace,area_terrace,garden,area_garden ,land_surface,
+                facades ,swimming_pool,building_state,epc_score]
 
         except:
             print("One property removed from the dataset due to errors.\n")

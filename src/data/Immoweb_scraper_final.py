@@ -74,44 +74,44 @@ def collect_infos(url):
             content_span = re.search(' = ', content_string).span()[1]
             content_sliced = content_string[content_span:-10]
             info = json.loads(content_sliced)
-
+            if info["transaction"]["sale"]["price"] is not None:
             # Collecting the different informations on the property
-            immoweb_code = info["id"]
-            locality = info["property"]["location"]["locality"]
-            type = info["property"]["type"]
-            subtype = info["property"]["subtype"]
-            price = info["transaction"]["sale"]["price"]
-            sale_type = info["transaction"]["subtype"]
-            bedrooms = info["property"]["bedroomCount"]
-            living_area = info["property"]["netHabitableSurface"]
-            if info["property"]["kitchen"] is None:
-                kitchen = "None"
-            else:
-                kitchen = "1" if info["property"]["kitchen"]["type"] == "HYPER_EQUIPPED" else "0"
-            if info["transaction"]["sale"] is not None and info["transaction"]["sale"]["isFurnished"] == "true":
-                furnished = "1"
-            else:
-                furnished = "None"
-            open_fire = "None" if info["property"]["fireplaceExists"] is None else int(info["property"]["fireplaceExists"])
-            terrace = "None" if info["property"]["hasTerrace"] is None else int(info["property"]["hasTerrace"])
-            area_terrace = "None" if info["property"]["terraceSurface"] is None else info["property"]["terraceSurface"]
-            garden = "None" if info["property"]["hasGarden"] is None else int(info["property"]["hasGarden"])
-            area_garden = "None" if info["property"]["gardenSurface"] is None else info["property"]["gardenSurface"]
-            land_surface = "None" if info["property"]["land"] is None else info["property"]["land"]["surface"]
-            facades = "None" if info["property"]["building"] is None else info["property"]["building"]["facadeCount"]
-            swimming_pool = "None" if info["property"]["hasSwimmingPool"] is None else int(info["property"]["hasSwimmingPool"])
-            building_state = "None" if info["property"]["building"] is None else info["property"]["building"]["condition"] 
+                immoweb_code = info["id"]
+                locality = info["property"]["location"]["locality"]
+                type = info["property"]["type"]
+                subtype = info["property"]["subtype"]
+                price = info["transaction"]["sale"]["price"]
+                sale_type = info["transaction"]["subtype"]
+                bedrooms = info["property"]["bedroomCount"]
+                living_area = info["property"]["netHabitableSurface"]
+                if info["property"]["kitchen"] is None:
+                    kitchen = "None"
+                else:
+                    kitchen = "1" if info["property"]["kitchen"]["type"] == "HYPER_EQUIPPED" else "0"
+                if info["transaction"]["sale"] is not None and info["transaction"]["sale"]["isFurnished"] == "true":
+                    furnished = "1"
+                else:
+                    furnished = "None"
+                open_fire = "None" if info["property"]["fireplaceExists"] is None else int(info["property"]["fireplaceExists"])
+                terrace = "None" if info["property"]["hasTerrace"] is None else int(info["property"]["hasTerrace"])
+                area_terrace = "None" if info["property"]["terraceSurface"] is None else info["property"]["terraceSurface"]
+                garden = "None" if info["property"]["hasGarden"] is None else int(info["property"]["hasGarden"])
+                area_garden = "None" if info["property"]["gardenSurface"] is None else info["property"]["gardenSurface"]
+                land_surface = "None" if info["property"]["land"] is None else info["property"]["land"]["surface"]
+                facades = "None" if info["property"]["building"] is None else info["property"]["building"]["facadeCount"]
+                swimming_pool = "None" if info["property"]["hasSwimmingPool"] is None else int(info["property"]["hasSwimmingPool"])
+                building_state = "None" if info["property"]["building"] is None else info["property"]["building"]["condition"] 
 
             # Adding the informations collected to the dictionnary
-            infos = {
-                "Id": immoweb_code, "Locality": locality, "House or appartment?": type, "Subtype": subtype, 
-                "Price": price , "Type of sale": sale_type, "Number of rooms": bedrooms, "Living area": living_area, 
-                "Fully equipped kitchen": kitchen , "Furnished": furnished , "Open fire": open_fire, "Terrace": terrace, 
-                "Area of terrace": area_terrace, "Garden": garden, "Area of garden": area_garden , "Land surface": land_surface ,
-                "Number of facades": facades , "Swimming pool": swimming_pool, "State of building": building_state
-                }
+                infos = {
+                    "Id": immoweb_code, "Locality": locality, "House or appartment?": type, "Subtype": subtype, 
+                    "Price": price , "Type of sale": sale_type, "Number of rooms": bedrooms, "Living area": living_area, 
+                    "Fully equipped kitchen": kitchen , "Furnished": furnished , "Open fire": open_fire, "Terrace": terrace, 
+                    "Area of terrace": area_terrace, "Garden": garden, "Area of garden": area_garden , "Land surface": land_surface ,
+                    "Number of facades": facades , "Swimming pool": swimming_pool, "State of building": building_state
+                    }
 
-            data.append(infos)
+                data.append(infos)
 
         except:
             print("One property removed from the dataset due to errors.\n")
