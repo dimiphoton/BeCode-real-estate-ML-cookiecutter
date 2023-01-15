@@ -17,7 +17,7 @@ start_urlscollection = perf_counter()
 print("Starting now to collect the urls...")
 
 # Creating a list of all listings for houses and apartments for sale in Belgium  !! 130.000+ listings
-main_url=['https://assets.immoweb.be/sitemap/classifieds-'+'{0:03}'.format(i)+'.xml' for i in range(30)]
+main_url=['https://assets.immoweb.be/sitemap/classifieds-'+'{0:03}'.format(i)+'.xml' for i in range(2)]
 
 def append_list(propertieslist,obj):
     i = 2
