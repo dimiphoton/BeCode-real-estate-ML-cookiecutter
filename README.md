@@ -16,10 +16,8 @@ Instead of scrapping individual html pages, we found that a wittier way was to s
 ### Code & Data
 The code uses Selenium and the Chrome webdriver to navigate to a series of pages on immoweb and collect the URLs for each property listing on those pages. Data was collected through web scrapping (BeautifulSoup method) of Immoweb's real-estate website in various intervals from 02/01/2023 to 06/01/2023. The data collected in this repository is open-sourced and lies inside property_urls.txt. 
 
-## 
-
 ### Visualizing results
-Typical vizualizations include price and area distribution, as well as basic geographic data, for example the mean price/m2 for each region. This can be achieved with the use of postgresql.
+
 
 ## Contributors
 Maïté Rolin
@@ -37,7 +35,7 @@ Augustin Carbonnelle
 
 Data cleaning consists in:
 
-1. remove duplicate
+1. remove duplicatemy
 2. fix naming problems: no blank space
 3. fix erroneous data
 4. fix ex empty values
