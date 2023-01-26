@@ -1,0 +1,6 @@
+level0 name, feature selection
+index,['Offer', 'Id']
+target,['Price']
+features1,['Living Area', 'Number of rooms', 'State of the building', 'Furnished']
+features2,['Fully equipped kitchen', 'Open fire', 'Surface of the land', 'Number of facades']
+spatial,['zipcode']
