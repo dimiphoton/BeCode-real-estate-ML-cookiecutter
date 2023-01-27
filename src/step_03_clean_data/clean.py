@@ -7,6 +7,12 @@ def clean(df):
     Returns:
         dataframe: _description_
     """
+    df[('misc','Price/m2')]=df[('Target','Price')]/df[('Group 1','Living Area')]
+
+
+    df[('Target','Price')]=df.apply(x1000, axis=1)
+
+
     # select  price and area for dropna:
     df_subset_0 = df.loc[:, (slice(None), ['Price','Living Area'])]
     df.dropna(subset=df_subset_0.columns, inplace=True)
@@ -29,3 +35,8 @@ def clean(df):
     #oublié number of facades!
 
     return df
+
+
+def x1000(df):
+    if ((df[('misc','Price/m2')]<200)):
+        return 1000*df[('Target','Price')]
