@@ -14,7 +14,7 @@ When buying/renting, the location is often a prime parameter. The dataset only c
 
 These features were used without prior transformation. Missing data policy was drop()
 
-### 
+
 
 ### 3. Garden, Open Fire, Land Area...
 
@@ -50,7 +50,7 @@ After splitting the data ,I fitted a standard scaler on the training set and app
 
 I chose the random forest algorithm because it is robust
 
-[a relative link]: BeCode-real-estate-ML-cookiecutter/src/MLexperiments.ipynb	"notebook"
+[a relative link]: https://github.com/dimiphoton/BeCode-real-estate-ML-cookiecutter/blob/part3/src/ML%20experiments.ipynb	"notebook"
 
 The metric is R² and its value is 0.51 when applied to the rent dataset and this is a porr value. I should compare with a one hot encoding feature engineering.
 
