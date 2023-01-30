@@ -50,7 +50,7 @@ After splitting the data ,I fitted a standard scaler on the training set and app
 
 I chose the random forest algorithm because it is robust
 
-[a relative link]: https://github.com/dimiphoton/BeCode-real-estate-ML-cookiecutter/blob/part3/src/ML%20experiments.ipynb	"notebook"
+[link]:( https://github.com/dimiphoton/BeCode-real-estate-ML-cookiecutter/blob/part3/src/ML%20experiments.ipynb)	"notebook"
 
 The metric is R² and its value is 0.51 when applied to the rent dataset and this is a porr value. I should compare with a one hot encoding feature engineering.
 

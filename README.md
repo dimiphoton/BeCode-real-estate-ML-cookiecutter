@@ -41,7 +41,7 @@ Augustin Carbonnelle
 
 In this part I cleaned the data, built features and fitted a scikit-learn model. More detail here: 
 
-[notebook]: https://github.com/dimiphoton/BeCode-real-estate-ML-cookiecutter/blob/part3/src/ML_regression.md	"notebook"
+[notebook]: (https://github.com/dimiphoton/BeCode-real-estate-ML-cookiecutter/blob/part3/src/ML_regression.md)
 
 
 
