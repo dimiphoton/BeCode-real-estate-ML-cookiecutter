@@ -11,10 +11,14 @@ def clean(df):
     df_subset_0 = df.loc[:, (slice(None), ['Number of rooms'])]
     df.dropna(subset=df_subset_0.columns, inplace=True)
 
+    
+
     df[('misc','Price/m2')]=df[('Target','Price')]/df[('Group 1','Living Area')]
 
 
-    df[('Target','Price')]=df.apply(x1000, axis=1)
+    #df.loc['rent'][('Target','Price')]=df.loc['rent'].apply(x1000, axis=1)
+
+    # hard price cleaning
 
 
     # select  price and area for dropna:
@@ -35,6 +39,10 @@ def clean(df):
     #select area for fillna(0)
     df_subset_3 = df.loc[:, (slice(None), ['Area of the terrace','Surface of the land','Area of the garden'])]
     df.update(df_subset_3.fillna(0))
+
+    # drop houses with big living area
+
+    df=df[df[('Group 1','Living Area')] < 500]
 
     #oublié number of facades!
 
