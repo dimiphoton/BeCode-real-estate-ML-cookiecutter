@@ -7,6 +7,10 @@ def clean(df):
     Returns:
         dataframe: _description_
     """
+
+    df_subset_0 = df.loc[:, (slice(None), ['Number of rooms'])]
+    df.dropna(subset=df_subset_0.columns, inplace=True)
+
     df[('misc','Price/m2')]=df[('Target','Price')]/df[('Group 1','Living Area')]
 
 
@@ -14,8 +18,8 @@ def clean(df):
 
 
     # select  price and area for dropna:
-    df_subset_0 = df.loc[:, (slice(None), ['Price','Living Area'])]
-    df.dropna(subset=df_subset_0.columns, inplace=True)
+    df_subset_1 = df.loc[:, (slice(None), ['Price','Living Area'])]
+    df.dropna(subset=df_subset_1.columns, inplace=True)
 
 
     # select state of the building for fillna(\nÀrafraîchir\n')
@@ -38,5 +42,13 @@ def clean(df):
 
 
 def x1000(df):
+    """multiply price per 1000
+
+    Args:
+        df (): dataframe
+
+    Returns:
+        _type_: _description_
+    """
     if ((df[('misc','Price/m2')]<200)):
         return 1000*df[('Target','Price')]

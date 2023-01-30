@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 
 def feature_engineering_0(df,coeff=np.array([-3,-2,-1,0,1,2])):
+
+    
     df[('my features', 'basic count')]=0
     df[('my features', 'advanced count')]=0
 
