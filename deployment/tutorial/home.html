@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Squared Number</title>
+</head>
+<body>
+    <form action="{{ url_for('squared_number') }}" method="post">
+        Number: <input type="text" name="number"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    {% if result %}
+        <br><br>
+        <b>Result:</b> {{ result }}
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Real Estate Price Calculator</title>
+    <style>
+      form {
+        text-align: center;
+        margin: 50px auto;
+        width: 400px;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+      select, input[type="submit"] {
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: none;
+        width: 100%;
+      }
+      #price {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 30px;
+        padding: 20px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="form">
+      <h2>Real Estate Price Calculator</h2>
+      <label for="rent-or-buy">Do you want to rent or buy?</label>
+      <select id="rent-or-buy" name="rent-or-buy">
+        <option value="rent">Rent</option>
+        <option value="buy">Buy</option>
+      </select>
+      <label for="property-type">Do you want an apartment or a house?</label>
+      <select id="property-type" name="property-type">
+        <option value="apartment">Apartment</option>
+        <option value="house">House</option>
+      </select>
+      <label for="rooms">How many rooms do you need?</label>
+      <input type="number" id="rooms" name="rooms" min="1" max="10">
+      <input type="submit" value="Calculate Price">
+    </form>
+    <div id="price">Estimated Price: <span id="estimated-price"></span></div>
+  </body>
+  <script>
+    const form = document.getElementById('form');
+    const estimatedPrice = document.getElementById('estimated-price');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const rentOrBuy = document.getElementById('rent-or-buy').value;
+      const propertyType = document.getElementById('property-type').value;
+      const rooms = document.getElementById('rooms').value;
+
+      const res = await fetch(`https://your-api-endpoint.com/?rentOrBuy=${rentOrBuy}&propertyType=${propertyType}&rooms=${rooms}`);
+      const data = await res.json();
+
+      estimatedPrice.innerText = data.price;
+    });
+  </script>
+</html>

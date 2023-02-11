@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>House Price Predictor</title>
+  </head>
+  <body>
+    <header>
+      <h1>House Price Predictor</h1>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="https://flask.palletsprojects.com/en/2.0.x/" target="_blank">Python Flask</a></li>
+        <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html" target="_blank">Scikit-Learn</a></li>
+      </ul>
+    </nav>
+    <main>
+      <div class="form-container">
+        <form action="/" method="post">
+          <div class="form-group">
+            <input type="radio" id="rent" name="rentOrBuy" value="rent">
+            <label for="rent">Rent</label>
+            <input type="radio" id="buy" name="rentOrBuy" value="buy">
+            <label for="buy">Buy</label>
+          </div>
+          <div class="form-group">
+            <input type="text" id="numRooms" name="numRooms" placeholder="Number of rooms" required>
+            <span style="color:red"> * </span>
+          </div>
+          <div class="form-group">
+            <input type="text" id="livingArea" name="livingArea" placeholder="Living Area" required>
+            <span style="color:red"> * </span>
+          </div>
+          <button type="submit">Predict</button>
+        </form>
+        <div class="prediction">
+          <p><b>{{ prediction_text }}</b></p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
