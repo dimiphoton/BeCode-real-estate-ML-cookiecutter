@@ -15,18 +15,25 @@
       </ul>
     </nav>
     <main>
+       <!-- This is main form container-->
       <div class="form-container">
         <form action="/" method="post">
+
+          <!-- This is the rent or buy option -->
           <div class="form-group">
             <input type="radio" id="rent" name="rentOrBuy" value="rent">
             <label for="rent">Rent</label>
             <input type="radio" id="buy" name="rentOrBuy" value="buy">
             <label for="buy">Buy</label>
           </div>
+
+           <!-- This is the number of rooms -->
           <div class="form-group">
             <input type="text" id="numRooms" name="numRooms" placeholder="Number of rooms" required>
             <span style="color:red"> * </span>
           </div>
+
+           <!-- This is the linvig area-->
           <div class="form-group">
             <input type="text" id="livingArea" name="livingArea" placeholder="Living Area" required>
             <span style="color:red"> * </span>
